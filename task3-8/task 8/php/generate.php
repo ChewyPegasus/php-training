@@ -8,7 +8,7 @@ $faker = Faker\Factory::create();
 $pdo = getConnection();
 
 $batch = 10000;
-$total = 100000;
+$total = 1000000;
 $batches = ceil($total / $batch);
 
 echo "Starting data generation: $total records in batches of $batch\n";
