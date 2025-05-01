@@ -1,0 +1,1 @@
+Deque != a doubly connected queue(DCQ)
