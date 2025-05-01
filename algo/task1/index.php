@@ -18,9 +18,9 @@ for ($k = 0; $k < $tests; ++$k) {
     echo 'Сгенерированный массив: ';
     for ($i = 0; $i < $size; ++$i) {
         echo $arr[$i] . ' ';
-    } 
+    }
     echo "\n";
-    
+
     $arrBubble = $arr;
     $arrQuick = $arr;
     $arrHeap = $arr;
@@ -29,20 +29,20 @@ for ($k = 0; $k < $tests; ++$k) {
     echo 'Результат работы пузырька: ';
     for ($i = 0; $i < $size; ++$i) {
         echo $bubbleResult[$i] . ' ';
-    } 
+    }
     echo "\n";
 
     $quickResult = Sorter::quick($arrQuick, null);
     echo 'Результат работы быстрой: ';
     for ($i = 0; $i < $size; ++$i) {
         echo $quickResult[$i] . ' ';
-    } 
+    }
     echo "\n";
-    
+
     $heapResult = Sorter::heap($arrHeap, null);
     echo 'Результат работы кучи: ';
     for ($i = 0; $i < $size; ++$i) {
         echo $heapResult[$i] . ' ';
-    } 
+    }
     echo "\n";
 }

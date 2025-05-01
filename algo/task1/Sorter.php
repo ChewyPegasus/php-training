@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 require_once "Heap.php";
 
-class Sorter {
-    private static function validateComparator(callable|null $comparator): callable {
+class Sorter
+{
+    private static function validateComparator(callable|null $comparator): callable
+    {
         if ($comparator === null) {
             return self::getDefaultComparator();
         }
@@ -15,19 +17,22 @@ class Sorter {
         return $comparator;
     }
 
-    private static function swap(&$x, &$y) {
+    private static function swap(&$x, &$y)
+    {
         $temp = $x;
         $x = $y;
         $y = $temp;
     }
 
-    private static function getDefaultComparator() {
-        return function($a, $b) {
+    private static function getDefaultComparator()
+    {
+        return function ($a, $b) {
             return $a < $b;
         };
     }
 
-    public static function bubble(array $arr, callable|null $comparator): array {
+    public static function bubble(array $arr, callable|null $comparator): array
+    {
         $comparator = self::validateComparator($comparator);
         $n = count($arr);
         for ($i = 0; $i < $n - 1; ++$i) {
@@ -40,7 +45,8 @@ class Sorter {
         return $arr;
     }
 
-    private static function partition(array& $arr, int $left, int $right, callable|null $comparator): int {
+    private static function partition(array& $arr, int $left, int $right, callable|null $comparator): int
+    {
         $comparator = self::validateComparator($comparator);
 
         $pivot = $arr[$right];
@@ -54,13 +60,15 @@ class Sorter {
         return $partitionIndex;
     }
 
-    public static function quick(array $arr, callable|null $comparator): array {
+    public static function quick(array $arr, callable|null $comparator): array
+    {
         $comparator = self::validateComparator($comparator);
         self::quick_($arr, 0, count($arr) - 1, $comparator);
         return $arr;
     }
 
-    private static function quick_(array& $arr, int $left, int $right, callable|null $comparator): void {
+    private static function quick_(array& $arr, int $left, int $right, callable|null $comparator): void
+    {
         if ($left < $right) {
             $pivot = self::partition($arr, $left, $right, $comparator);
 
@@ -69,7 +77,8 @@ class Sorter {
         }
     }
 
-    public static function heap(array $arr, callable|null $comparator) {
+    public static function heap(array $arr, callable|null $comparator)
+    {
         $comparator = self::validateComparator($comparator);
         $heap = new Heap();
         for ($i = 0; $i < count($arr); ++$i) {

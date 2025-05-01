@@ -2,30 +2,38 @@
 
 declare(strict_types=1);
 
-class Heap {
+class Heap
+{
     private $heap = [];
 
-    private static function parentIndex(int $index): int {
+    private static function parentIndex(int $index): int
+    {
         return (int)(($index - 1) / 2);
     }
-    private static function rightIndex(int $index): int {
+    private static function rightIndex(int $index): int
+    {
         return (int)(2 * $index + 2);
     }
-    private static function leftIndex(int $index): int {
+    private static function leftIndex(int $index): int
+    {
         return (int)(2 * $index + 1);
     }
 
-    private function hasLeftChild(int $index): bool {
+    private function hasLeftChild(int $index): bool
+    {
         return (self::leftIndex($index) < count($this->heap));
     }
-    private function hasRightChild(int $index): bool {
+    private function hasRightChild(int $index): bool
+    {
         return (self::rightIndex($index) < count($this->heap));
     }
-    private function hasChildren(int $index): bool {
+    private function hasChildren(int $index): bool
+    {
         return $this->hasLeftChild($index);
     }
 
-    private function smallestChildIndex($index): int {
+    private function smallestChildIndex($index): int
+    {
         if ($this->hasRightChild($index)) {
             $l = self::leftIndex($index);
             $r = self::rightIndex($index);
@@ -36,13 +44,15 @@ class Heap {
         }
     }
 
-    private static function swap(&$x, &$y) {
+    private static function swap(&$x, &$y)
+    {
         $temp = $x;
         $x = $y;
         $y = $temp;
     }
-    
-    public function push(int $c): void {
+
+    public function push(int $c): void
+    {
         $this->heap[] = $c;
 
         for ($i = count($this->heap) - 1; $i > 0;) {
@@ -56,11 +66,12 @@ class Heap {
         }
     }
 
-    public function pop(): void {
+    public function pop(): void
+    {
         if ($this->empty()) {
             return;
         }
-        
+
         $lastIdx = count($this->heap) - 1;
         self::swap($this->heap[0], $this->heap[$lastIdx]);
         array_pop($this->heap);
@@ -77,14 +88,16 @@ class Heap {
         }
     }
 
-    public function top(): int {
+    public function top(): int
+    {
         if ($this->empty()) {
             throw new RuntimeException("Heap is empty");
         }
         return $this->heap[0];
     }
 
-    public function empty(): bool {
+    public function empty(): bool
+    {
         return empty($this->heap);
     }
 }
