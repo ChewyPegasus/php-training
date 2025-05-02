@@ -2,20 +2,21 @@
 
 declare(strict_types=1);
 
-class Solution {
-
+class Solution
+{
     /**
      * @param int[] $nums
      * @return int
      */
-    function longestConsecutive($nums) {
+    public function longestConsecutive($nums)
+    {
         $hash = [];
-        foreach($nums as $num) {
+        foreach ($nums as $num) {
             $hash[$num] = true;
         }
         $maxLength = PHP_INT_MIN;
         foreach ($hash as $num => $_) {
-            if (!isset($hash[$num - 1])) { 
+            if (!isset($hash[$num - 1])) {
                 $length = 1;
                 while (isset($hash[$num + $length])) {
                     ++$length;

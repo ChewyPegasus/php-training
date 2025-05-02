@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-class Solution {
-
+class Solution
+{
     /**
      * @param Integer[] $nums
      * @return Integer[]
      */
-    function productExceptSelf($nums) {
+    public function productExceptSelf($nums)
+    {
         $rez = array();
         $n = count($nums);
         $prefix = 1;

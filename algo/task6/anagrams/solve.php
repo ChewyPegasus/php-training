@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-class Solution {
-
+class Solution
+{
     /**
      * @param String[] $strs
      * @return String[][]
      */
-    function groupAnagrams($strs) {
+    public function groupAnagrams($strs)
+    {
         $rez = [];
         foreach ($strs as $str) {
             $strParts = str_split($str);
