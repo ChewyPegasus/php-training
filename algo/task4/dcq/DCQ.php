@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 require "Node.php";
 
-class DCQ {
+class DCQ
+{
     private Node $dummy;
     private int $size = 0;
 
@@ -13,7 +14,8 @@ class DCQ {
         $this->dummy = new Node(null, null);
     }
 
-    public function push_front($x): void {
+    public function push_front($x): void
+    {
         if ($this->empty()) {
             $node = new Node($this->dummy, $this->dummy, $x);
             $this->dummy->next = $node;
@@ -27,7 +29,8 @@ class DCQ {
         ++$this->size;
     }
 
-    public function pop_front(): void {
+    public function pop_front(): void
+    {
         if ($this->empty()) {
             throw new BadMethodCallException("DCQ is empty");
         }
@@ -45,7 +48,8 @@ class DCQ {
         --$this->size;
     }
 
-    public function push_back($x): void {
+    public function push_back($x): void
+    {
         if ($this->empty()) {
             $node = new Node($this->dummy, $this->dummy, $x);
             $this->dummy->next = $node;
@@ -59,7 +63,8 @@ class DCQ {
         ++$this->size;
     }
 
-    public function pop_back(): void {
+    public function pop_back(): void
+    {
         if ($this->empty()) {
             throw new BadMethodCallException("DCQ is empty");
         }
@@ -77,29 +82,34 @@ class DCQ {
         --$this->size;
     }
 
-    public function back() {
+    public function back()
+    {
         if ($this->empty()) {
             throw new BadMethodCallException("DCQ is empty");
         }
         return ($this->dummy->next->val);
     }
 
-    public function front() {
+    public function front()
+    {
         if ($this->empty()) {
             throw new BadMethodCallException("DCQ is empty");
         }
         return ($this->dummy->prev->val);
     }
 
-    public function empty(): bool {
+    public function empty(): bool
+    {
         return ($this->size === 0);
     }
 
-    public function size(): int {
+    public function size(): int
+    {
         return $this->size;
     }
 
-    public function __print(): void {
+    public function __print(): void
+    {
         $cur = $this->dummy->prev;
         while ($cur !== $this->dummy) {
             echo $cur->val;

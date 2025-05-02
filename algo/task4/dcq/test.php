@@ -10,11 +10,11 @@ $line = "";
 while (($line = trim(fgets(STDIN))) !== "size") {
     $parts = explode(' ', $line);
     $cmd = $parts[0];
-    
+
     if (count($parts) > 1) {
         $x = (int)$parts[1];
     }
-    
+
     switch ($cmd) {
         case "front":
             $dcq->push_front($x);

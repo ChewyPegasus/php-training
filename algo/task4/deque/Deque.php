@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-class Deque {
+class Deque
+{
     private const CHUNK_SIZE = 128;
     private array $data = [];
     private int $front_chunk_ptr = 0;
@@ -11,12 +12,14 @@ class Deque {
     private int $back_chunk_index = 0;
     private int $size = 0;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->data[0] = array_fill(0, self::CHUNK_SIZE, null);
         $this->front_chunk_index = $this->back_chunk_index = intval(self::CHUNK_SIZE / 2);
     }
 
-    public function push_front($x): void {
+    public function push_front($x): void
+    {
         if ($this->empty()) {
             $this->data[$this->front_chunk_ptr][$this->front_chunk_index] = $x;
         } else {
@@ -37,7 +40,8 @@ class Deque {
         ++$this->size;
     }
 
-    public function pop_front(): void {
+    public function pop_front(): void
+    {
         if ($this->empty()) {
             throw new BadMethodCallException("Deque is empty");
         }
@@ -60,7 +64,8 @@ class Deque {
         --$this->size;
     }
 
-    public function push_back($x): void {
+    public function push_back($x): void
+    {
         if ($this->empty()) {
             $this->data[$this->back_chunk_ptr][$this->back_chunk_index] = $x;
         } else {
@@ -81,7 +86,8 @@ class Deque {
         ++$this->size;
     }
 
-    public function pop_back(): void {
+    public function pop_back(): void
+    {
         if ($this->empty()) {
             throw new BadMethodCallException("Deque is empty");
         }
@@ -102,25 +108,29 @@ class Deque {
         --$this->size;
     }
 
-    public function front() {
+    public function front()
+    {
         if ($this->empty()) {
             throw new BadMethodCallException("Deque is empty");
         }
         return $this->data[$this->front_chunk_ptr][$this->front_chunk_index];
     }
 
-    public function back() {
+    public function back()
+    {
         if ($this->empty()) {
             throw new BadMethodCallException("Deque is empty");
         }
         return $this->data[$this->back_chunk_ptr][$this->back_chunk_index];
     }
 
-    public function empty(): bool {
+    public function empty(): bool
+    {
         return ($this->size === 0);
     }
 
-    public function size(): int {
+    public function size(): int
+    {
         return ($this->size);
     }
 }
