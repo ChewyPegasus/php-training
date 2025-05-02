@@ -8,11 +8,11 @@ $bst = new BST();
 
 while (true) {
     $input = trim(readline());
-    
+
     if ($input === 'order') {
         break;
     }
-    
+
     $bst->insert((int)$input);
 }
 
