@@ -2,17 +2,18 @@
 
 declare(strict_types=1);
 
-class Solution {
-
+class Solution
+{
     /**
      * @param String[] $tokens
      * @return Integer
      */
-    function evalRPN($tokens) {
+    public function evalRPN($tokens)
+    {
         array_reverse($tokens);
         $ops = [];
 
-        foreach($tokens as $token) {
+        foreach ($tokens as $token) {
             if (is_numeric($token)) {
                 $ops[] = intval($token);
             } else {

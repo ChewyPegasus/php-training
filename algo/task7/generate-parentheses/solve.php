@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-class Solution {
-
+class Solution
+{
     /**
      * @param Integer $n
      * @return String[]
      */
-    function generateParenthesis($n) {
+    public function generateParenthesis($n)
+    {
         $dp = [];
         $dp[0][] = "";
 
@@ -17,8 +18,8 @@ class Solution {
                 $left = $dp[$j];
                 $right = $dp[$i - $j - 1];
 
-                foreach($left as $l) {
-                    foreach($right as $r) {
+                foreach ($left as $l) {
+                    foreach ($right as $r) {
                         $dp[$i][] = "(" . $l . ")" . $r;
                     }
                 }

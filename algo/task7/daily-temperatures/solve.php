@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-class Solution {
-
+class Solution
+{
     /**
      * @param Integer[] $temperatures
      * @return Integer[]
      */
-    function dailyTemperatures($temperatures) {
+    public function dailyTemperatures($temperatures)
+    {
         $n = count($temperatures);
 
         $nextGreater = array_fill(0, $n, 0);
