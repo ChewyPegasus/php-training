@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-class Solution {
-
-    function threeSum($nums) {
+class Solution
+{
+    public function threeSum($nums)
+    {
         sort($nums);
 
         $n = count($nums);
@@ -13,7 +14,9 @@ class Solution {
             if ($nums[$i] > 0) {
                 break;
             }
-            if ($i !== 0 && $nums[$i - 1] === $nums[$i]) continue;
+            if ($i !== 0 && $nums[$i - 1] === $nums[$i]) {
+                continue;
+            }
             $l = $i + 1;
             $r = $n - 1;
 
@@ -27,9 +30,13 @@ class Solution {
 
                     ++$l;
                     --$r;
-                    while ($l < $r && $nums[$l - 1] === $nums[$l]) ++$l;
-                    while ($l < $r && $nums[$r + 1] === $nums[$r]) --$r;
-                } else if ($sum > 0) {
+                    while ($l < $r && $nums[$l - 1] === $nums[$l]) {
+                        ++$l;
+                    }
+                    while ($l < $r && $nums[$r + 1] === $nums[$r]) {
+                        --$r;
+                    }
+                } elseif ($sum > 0) {
                     --$r;
                 } else {
                     ++$l;

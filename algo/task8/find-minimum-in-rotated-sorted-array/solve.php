@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-class Solution {
-
+class Solution
+{
     /**
      * @param Integer[] $nums
      * @return Integer
      */
-    function findMin($nums) {
+    public function findMin($nums)
+    {
         $n = count($nums);
         $left = 0;
         $right = $n - 1;
@@ -19,7 +20,7 @@ class Solution {
             }
 
             $mid = $left + intval(($right - $left) / 2);
-            
+
             if ($nums[$mid] >= $nums[$left]) {
                 $left = $mid + 1;
             } else {

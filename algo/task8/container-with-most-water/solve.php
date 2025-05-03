@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-class Solution {
-
+class Solution
+{
     /**
      * @param Integer[] $height
      * @return Integer
      */
-    function maxArea($height) {
+    public function maxArea($height)
+    {
         $n = count($height);
         $left = 0;
         $right = $n - 1;

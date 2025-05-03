@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-class Solution {
-
+class Solution
+{
     /**
      * @param Integer[][] $matrix
      * @param Integer $target
      * @return Boolean
      */
-    public function searchMatrix($matrix, $target) {
+    public function searchMatrix($matrix, $target)
+    {
         $m = count($matrix);
         $n = count($matrix[0]);
 
@@ -21,13 +22,13 @@ class Solution {
             if ($matrix[$mid][0] <= $target && $target <= $matrix[$mid][$n - 1]) {
                 $row = $mid;
                 break;
-            } else if ($matrix[$mid][0] > $target) {
+            } elseif ($matrix[$mid][0] > $target) {
                 $right = $mid - 1;
             } else {
                 $left = $mid + 1;
             }
         }
-        
+
         if ($left > $right) {
             return false;
         }
@@ -38,7 +39,9 @@ class Solution {
             $mid = intval($left + ($right - $left) / 2);
             $num = $matrix[$row][$mid];
 
-            if ($num === $target) return true;
+            if ($num === $target) {
+                return true;
+            }
 
             if ($num < $target) {
                 $left = $mid + 1;
