@@ -8,10 +8,11 @@ class Stack
 {
     private ?Node $top = null;
 
-    public function push($x): void
+    public function push(mixed $x): void
     {
         if ($this->top === null) {
             $this->top = new Node($x, null);
+
             return;
         }
         $node = new Node($x, $this->top);
@@ -38,6 +39,7 @@ class Stack
         if ($this->top === null) {
             throw new BadMethodCallException('Stack is empty');
         }
+        
         return ($this->top->value);
     }
 

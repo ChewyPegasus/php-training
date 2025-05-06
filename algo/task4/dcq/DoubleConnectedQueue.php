@@ -3,8 +3,9 @@
 declare(strict_types=1);
 
 require "Node.php";
+require "../AbstractQueue.php";
 
-class DCQ
+class DoubleConnectedQueue implements AbstractQueue
 {
     private Node $dummy;
     private int $size = 0;
@@ -14,7 +15,7 @@ class DCQ
         $this->dummy = new Node(null, null);
     }
 
-    public function push_front($x): void
+    public function pushFront($x): void
     {
         if ($this->empty()) {
             $node = new Node($this->dummy, $this->dummy, $x);
@@ -29,10 +30,10 @@ class DCQ
         ++$this->size;
     }
 
-    public function pop_front(): void
+    public function popFront(): void
     {
         if ($this->empty()) {
-            throw new BadMethodCallException("DCQ is empty");
+            throw new BadMethodCallException("DoubleConnectedQueue is empty");
         }
         if ($this->size === 1) {
             $node = $this->dummy->prev;
@@ -48,7 +49,7 @@ class DCQ
         --$this->size;
     }
 
-    public function push_back($x): void
+    public function pushBack($x): void
     {
         if ($this->empty()) {
             $node = new Node($this->dummy, $this->dummy, $x);
@@ -63,10 +64,10 @@ class DCQ
         ++$this->size;
     }
 
-    public function pop_back(): void
+    public function popBack(): void
     {
         if ($this->empty()) {
-            throw new BadMethodCallException("DCQ is empty");
+            throw new BadMethodCallException("DoubleConnectedQueue is empty");
         }
         if ($this->size === 1) {
             $node = $this->dummy->next;
@@ -82,19 +83,21 @@ class DCQ
         --$this->size;
     }
 
-    public function back()
+    public function back(): mixed
     {
         if ($this->empty()) {
-            throw new BadMethodCallException("DCQ is empty");
+            throw new BadMethodCallException("DoubleConnectedQueue is empty");
         }
+
         return ($this->dummy->next->val);
     }
 
-    public function front()
+    public function front(): mixed
     {
         if ($this->empty()) {
-            throw new BadMethodCallException("DCQ is empty");
+            throw new BadMethodCallException("DoubleConnectedQueue is empty");
         }
+
         return ($this->dummy->prev->val);
     }
 

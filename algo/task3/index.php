@@ -21,5 +21,5 @@ foreach ($testData as $test) {
         echo $stack->top();
         $stack->pop();
     }
-    echo "\n";
+    echo PHP_EOL;
 }

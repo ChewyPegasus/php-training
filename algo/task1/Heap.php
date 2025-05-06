@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace DataStructure;
+
 class Heap
 {
     private $heap = [];
@@ -10,10 +12,12 @@ class Heap
     {
         return (int)(($index - 1) / 2);
     }
+
     private static function rightIndex(int $index): int
     {
         return (int)(2 * $index + 2);
     }
+
     private static function leftIndex(int $index): int
     {
         return (int)(2 * $index + 1);
@@ -23,10 +27,12 @@ class Heap
     {
         return (self::leftIndex($index) < count($this->heap));
     }
+
     private function hasRightChild(int $index): bool
     {
         return (self::rightIndex($index) < count($this->heap));
     }
+    
     private function hasChildren(int $index): bool
     {
         return $this->hasLeftChild($index);
@@ -91,7 +97,7 @@ class Heap
     public function top(): int
     {
         if ($this->empty()) {
-            throw new RuntimeException("Heap is empty");
+            throw new \RuntimeException("Heap is empty");
         }
         return $this->heap[0];
     }

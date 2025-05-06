@@ -2,12 +2,16 @@
 
 declare(strict_types=1);
 
-require "Finder.php";
+require "searching/Binary.php";
+require "searching/Linear.php";
 
 echo 'Количество тестов: ';
 fscanf(STDIN, "%d\n", $tests);
 echo 'Количество элементов в массиве: ';
 fscanf(STDIN, "%d\n", $size);
+
+$binary = new Binary();
+$linear = new Linear();
 
 for ($k = 0; $k < $tests; ++$k) {
     $arr = [];
@@ -23,17 +27,17 @@ for ($k = 0; $k < $tests; ++$k) {
 
     $target = rand(100, 1000);
 
-    echo "Линейный поиск\n";
-    echo "  Есть ли в массиве $target: ";
+    echo "Линейный поиск" . PHP_EOL;
+    echo "\t" . "Есть ли в массиве $target: ";
     $start = microtime(true);
-    echo Finder::linear($arr, $target) ? 'Yes' : 'No';
+    echo $linear->search($arr, $target) ? 'Yes' : 'No';
     $time = microtime(true) - $start;
-    echo "\n    Время работы: $time\n";
+    echo PHP_EOL . "\t" . "Время работы: $time" . PHP_EOL;
 
-    echo "Двоичный поиск\n";
-    echo "  Есть ли в массиве $target: ";
+    echo "Двоичный поиск" . PHP_EOL;
+    echo "\t" . "Есть ли в массиве $target: ";
     $start = microtime(true);
-    echo Finder::binary($arr, $target) ? 'Yes' : 'No';
+    echo $binary->search($arr, $target) ? 'Yes' : 'No';
     $time = microtime(true) - $start;
-    echo "\n    Время работы: $time\n\n";
+    echo PHP_EOL . "\t" . "Время работы: $time" . PHP_EOL;
 }

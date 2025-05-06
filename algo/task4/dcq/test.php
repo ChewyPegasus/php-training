@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-require "DCQ.php";
+require "DoubleConnectedQueue.php";
 
-$dcq = new DCQ();
+$dcq = new DoubleConnectedQueue();
 
 $line = "";
 while (($line = trim(fgets(STDIN))) !== "size") {
@@ -17,13 +17,13 @@ while (($line = trim(fgets(STDIN))) !== "size") {
 
     switch ($cmd) {
         case "front":
-            $dcq->push_front($x);
+            $dcq->pushFront($x);
             break;
         case "back":
-            $dcq->push_back($x);
+            $dcq->pushBack($x);
             break;
     }
 }
-echo $dcq->size() . "\n";
+echo $dcq->size() . PHP_EOL;
 
 $dcq->__print();

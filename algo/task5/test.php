@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-require "BST.php";
+require "BinarySearchTree.php";
 
-$bst = new BST();
+$bst = new BinarySearchTree();
 
 while (true) {
     $input = trim(readline());

@@ -17,10 +17,10 @@ while (($line = trim(fgets(STDIN))) !== "size") {
 
     switch ($cmd) {
         case "front":
-            $deque->push_front($x);
+            $deque->pushFront($x);
             break;
         case "back":
-            $deque->push_back($x);
+            $deque->pushBack($x);
             break;
     }
 }
