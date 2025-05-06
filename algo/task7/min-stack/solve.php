@@ -1,57 +1,34 @@
 <?php
+class MinStack {
+    private array $stack = [];
+    private array $minStack = [];
 
-declare(strict_types=1);
-
-class Node
-{
-    public function __construct(public $val, public ?Node $prev, public $min)
-    {
-    }
-}
-
-class MinStack
-{
-    private Node $top;
-    /**
-     */
-    public function __construct()
-    {
-        $this->top = new Node(null, null, PHP_INT_MAX);
+    public function __construct() {
     }
 
-    /**
-     * @param Integer $val
-     * @return NULL
-     */
-    public function push($val)
-    {
-        $node = new Node($val, $this->top, min($val, $this->top->min));
-        $this->top = $node;
+    public function push($val) {
+        $this->stack[] = $val;
+        
+        if (empty($this->minStack) || $val <= end($this->minStack)) {
+            $this->minStack[] = $val;
+        }
     }
 
-    /**
-     * @return NULL
-     */
-    public function pop()
-    {
-        $node = $this->top;
-        $this->top = $this->top->prev;
-        unset($node);
+    public function pop() {
+        $val = array_pop($this->stack);
+        
+        if (end($this->minStack) === $val) {
+            array_pop($this->minStack);
+        }
+        
+        return $val;
     }
 
-    /**
-     * @return Integer
-     */
-    public function top()
-    {
-        return $this->top->val;
+    public function top() {
+        return end($this->stack);
     }
 
-    /**
-     * @return Integer
-     */
-    public function getMin()
-    {
-        return $this->top->min;
+    public function getMin() {
+        return end($this->minStack);
     }
 }

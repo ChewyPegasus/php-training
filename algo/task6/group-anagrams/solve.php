@@ -10,12 +10,12 @@ class Solution
      */
     public function groupAnagrams($strs)
     {
-        $rez = [];
-        foreach ($strs as $str) {
-            $strParts = str_split($str);
-            sort($strParts);
-            $rez[implode($strParts)][] = $str;
+        $hash = [];
+
+        foreach($strs as $str) {
+            $hash[json_encode(count_chars($str, 1))][] = $str;
         }
-        return $rez;
+
+        return $hash;
     }
 }
