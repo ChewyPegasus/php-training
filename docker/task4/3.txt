@@ -1,0 +1,77 @@
+·	List all running containers
+    docker ps
+
+·	List all containers (with stopped)
+    docker ps -a
+
+·	Run container
+    docker run *image-name*
+
+·	Run container with specific name (not possible to create container with the same name twice)
+    docker run --name *container-name* *image-name*
+
+·	Start container with specific name
+    docker start *container-name*
+
+·	Stop running container
+    docker stop CONTAINER
+
+·	Start stopped container
+    docker start CONTAINER
+
+·	Delete stopped docker container
+    docker rm CONTAINER
+
+·	Delete any (stopped or running) docker container
+    docker rm -f CONTAINER
+
+·	Delete stopped container by name
+    docker rm *container-name*
+
+·	Delete all containers (-aq equals to --all --quite)
+    docker container rm $(docker ps -aq)
+
+·	Run container and disconnect terminal-container connection (--detach)
+    docker run -d *image-name*
+
+·	Run container and connect local terminal to container terminal (--interactive --tty)
+    docker run -it *image-name*
+
+·	Run container with specific port (--publish <localhostPort>:<dockerPort>)
+    docker run -p*host-port*:*container-port*
+
+·	Run container with multiple ports
+    docker run (-p*host-port*:*container-port*)* *image-name*
+
+·	Run container and automatically delete it after stop
+    docker run --rm *image-name*
+
+·	See docker container logs
+    docker logs CONTAINER
+
+·	List all docker networks
+    docker network ls
+
+·	Create network
+    docker network create *network-name*
+
+·	Run container in network
+    docker run -itd --network=*network-name* *image-name*
+
+·	Connect container with network
+    docker network connect *network-name* CONTAINER
+
+·	Delete network
+    docker network rm *network-name*
+
+·	List all volumes
+    docker volume ls
+
+·	Create volume
+    docker volume create *volume-name*
+
+·	Run container with volume (my-volume will be automatically created if not created before)
+    docker run -v "*host-path*":"*container-path*" *image-name*
+
+·	Delete volume
+    docker volume rm *volume-name*

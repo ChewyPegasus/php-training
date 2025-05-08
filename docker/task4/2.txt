@@ -1,0 +1,23 @@
+·	Download special version of image(official image)
+    docker pull *image-name*:*tag*
+
+·	Download unofficial image
+    docker pull *registry-url*/*username*/*image-name*:*tag*
+
+·	Inspect image info (port, env variables, layers, entrypoint, etc.)
+    docker inspect *image-name*
+
+·	Search docker images by stars from terminal
+    docker search --filet=stars=N *image-name*
+
+·	Delete image
+    docker rmi *image-name*
+
+·	Delete image even if it is used in container
+    docker rmi -f *image-name*
+
+·	Delete all unused images
+    docker image prune -a
+
+·	Show build history of image
+    docker history *image-name*
