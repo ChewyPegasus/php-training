@@ -1,5 +1,5 @@
 <?php
-
+// filepath: d:\prog\php\php-training\redis\app\models\Comment.php
 declare(strict_types=1);
 
 namespace App\Models;
@@ -14,6 +14,7 @@ class Comment extends Model {
 
         $id = (int) $stmt->fetchColumn(0);
 
+        // Изменена работа с Redis
         $this->redis->del("article:{$data['article_id']}:comments");
 
         return $id;
@@ -33,6 +34,7 @@ class Comment extends Model {
 
     public function findCached(int $articleId): ?array {
         $cacheKey = "article:{$articleId}:comments";
+        // Изменена работа с Redis
         $cached = $this->redis->get($cacheKey);
 
         if ($cached) {
@@ -48,6 +50,7 @@ class Comment extends Model {
         $result = $stmt->fetchAll();
 
         if ($result) {
+            // Изменена работа с Redis
             $this->redis->setex($cacheKey, $this->cacheTtl, json_encode($result));
         }
 
@@ -66,7 +69,8 @@ class Comment extends Model {
         $success = $stmt->execute($data);
 
         if ($success) {
-            $this->redis->del("article:{$data['article_id']}:comments");
+            // Изменена работа с Redis
+            $this->redis->del("article:{$articleId}:comments");
         }
 
         return $success;
@@ -77,6 +81,7 @@ class Comment extends Model {
         $success = $stmt->execute(['id' => $commentId]);
         
         if ($success) {
+            // Изменена работа с Redis
             $this->redis->del("article:{$articleId}:comments");
         }
         

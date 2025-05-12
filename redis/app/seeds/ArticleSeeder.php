@@ -21,7 +21,7 @@ class ArticleSeeder extends Seeder {
         $this->truncate('articles');
 
         $batch = 100;
-        $total = 100;
+        $total = 1000;
         $batches = ceil($total / $batch);
 
         echo "Starting article generation: $total records in batches of $batch<br>";

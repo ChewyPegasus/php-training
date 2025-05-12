@@ -21,7 +21,7 @@ RUN docker-php-ext-install \
     pdo \
     pdo_pgsql
 
-# Install Redis extension (через исходный код)
+# Install Redis extension
 RUN pecl install redis && \
     docker-php-ext-enable redis
 

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+set_time_limit(300);
+
 require_once __DIR__ . "/../app/bootstrap.php";
 
 use App\Database\PostgresConnection;
@@ -27,7 +29,7 @@ if ($countArticles === 0) {
     die("No articles found in database. Please run seeders first.");
 }
 
-$testAmount = 100;
+$testAmount = 10000;
 
 echo "<h2>Redis Caching Performance Benchmark</h2>";
 
@@ -41,7 +43,6 @@ $directArticleTime = benchmark(function() use ($article, $articleIds, $countArti
 echo "Average time for searching $testAmount articles directly: ";
 echo round($directArticleTime * 1000, 2) . " ms<br>";
 
-// Comments without cache
 $directCommentTime = benchmark(function() use ($comment, $articleIds, $countArticles) {
     $articleId = $articleIds[rand(0, $countArticles - 1)];
     $comment->find($articleId);

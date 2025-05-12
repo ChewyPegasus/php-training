@@ -1,10 +1,10 @@
 <?php
-
+// filepath: d:\prog\php\php-training\redis\app\models\Article.php
 namespace App\Models;
 
 use App\Database\PostgresConnection;
 use PDO;
-use Predis\Client;
+use Redis;
 
 class Article extends Model {
     protected int $cacheTtl = 3600;
@@ -18,12 +18,14 @@ class Article extends Model {
 
         $id = (int) $stmt->fetchColumn(0);
 
+        // Изменена работа с Redis
         $this->redis->del('articles:all');
 
         return $id;
     }
 
     public function all(): array {
+        // Изменена работа с Redis
         $cached = $this->redis->get('articles:all');
 
         if ($cached) {
@@ -33,6 +35,7 @@ class Article extends Model {
         $stmt = $this->db->query("SELECT * FROM articles ORDER BY created_at DESC");
         $articles = $stmt->fetchAll();
 
+        // Изменена работа с Redis
         $this->redis->setex('articles:all', $this->cacheTtl, json_encode($articles));
 
         return $articles;
@@ -50,6 +53,7 @@ class Article extends Model {
 
     public function findCached(int $id): ?array {
         $cacheKey = "article:{$id}";
+        // Изменена работа с Redis
         $cached = $this->redis->get($cacheKey);
 
         if ($cached) {
@@ -63,6 +67,7 @@ class Article extends Model {
         $result = $stmt->fetch();
 
         if ($result) {
+            // Изменена работа с Redis
             $this->redis->setex($cacheKey, $this->cacheTtl, json_encode($result));
         }
 
@@ -79,6 +84,7 @@ class Article extends Model {
         $success = $stmt->execute($data);
         
         if ($success) {
+            // Изменена работа с Redis
             $this->redis->del("article:{$id}");
             $this->redis->del("articles:all");
         }
@@ -91,6 +97,7 @@ class Article extends Model {
         $success = $stmt->execute(['id' => $id]);
         
         if ($success) {
+            // Изменена работа с Redis
             $this->redis->del("article:{$id}");
             $this->redis->del("articles:all");
         }
