@@ -23,4 +23,6 @@ abstract class Model {
     abstract public function create(array $data): int;
 
     abstract public function find(int $id): ?array;
+
+    abstract public function findCached(int $id): ?array;
 }

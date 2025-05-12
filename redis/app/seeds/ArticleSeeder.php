@@ -2,7 +2,7 @@
 
 namespace App\Seeds;
 
-use App\Database\Seeder;
+use App\Seeds\Seeder;
 
 class ArticleSeeder extends Seeder {
 
@@ -21,10 +21,10 @@ class ArticleSeeder extends Seeder {
         $this->truncate('articles');
 
         $batch = 100;
-        $total = 1000;
+        $total = 100;
         $batches = ceil($total / $batch);
 
-        echo "Starting article generation: $total records in batches of $batch\n";
+        echo "Starting article generation: $total records in batches of $batch<br>";
 
         $query = "
             INSERT INTO articles (title, content)
@@ -53,13 +53,13 @@ class ArticleSeeder extends Seeder {
                 $this->db->commit();
 
                 $recordsInserted += $batch;
-                echo "Inserted $recordsInserted records\n";
+                echo "Inserted $recordsInserted records<br>";
             }
             $time = microtime(true) - $startTime;
-            echo "Data generation completed in " . round($time, 2) . " seconds\n";
+            echo "Data generation completed in " . round($time, 2) . " seconds<br>";
         } catch (\Exception $e) {
             $this->db->rollBack();
-            echo "Failed: " . $e->getMessage() . "\n";
+            echo "Failed: " . $e->getMessage() . "<br>";
         }
     }
 }

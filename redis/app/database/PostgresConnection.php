@@ -9,7 +9,7 @@ use PDOException;
 
 class PostgresConnection extends Connection {
     protected static ?PDO $instance = null;
-
+    
     public static function getInstance(): PDO {
         if (self::$instance === null) {
             try {

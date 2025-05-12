@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use PDO;
-use App\Database\PostgresConnection;
-
 class Comment extends Model {
     public function create(array $data): int {
         $query = "INSERT INTO comments (article_id, content, author)
@@ -17,13 +14,25 @@ class Comment extends Model {
 
         $id = (int) $stmt->fetchColumn(0);
 
-        $this->redis->del("comments:{$data['article_id']}");
+        $this->redis->del("article:{$data['article_id']}:comments");
 
-        return (int) $stmt->fetchColumn();
+        return $id;
     }
 
     public function find(int $articleId): ?array {
-        $cacheKey = "comments:{$articleId}";
+        $stmt = $this->db->prepare(
+            "SELECT * FROM comments WHERE article_id = :article_id ORDER BY created_at DESC"
+        );
+
+        $stmt->execute(['article_id' => $articleId]);
+
+        $result = $stmt->fetchAll();
+
+        return $result ?: null;
+    }
+
+    public function findCached(int $articleId): ?array {
+        $cacheKey = "article:{$articleId}:comments";
         $cached = $this->redis->get($cacheKey);
 
         if ($cached) {
@@ -39,7 +48,7 @@ class Comment extends Model {
         $result = $stmt->fetchAll();
 
         if ($result) {
-            $this->redis->setex($cacheKey, $this->cacheTtl, $result);
+            $this->redis->setex($cacheKey, $this->cacheTtl, json_encode($result));
         }
 
         return $result ?: null;
@@ -49,13 +58,15 @@ class Comment extends Model {
         $query = "UPDATE comments SET
                     article_id = :article_id,
                     content = :content,
-                    author = :author";
+                    author = :author
+                  WHERE id = :id";
+
         $stmt = $this->db->prepare($query);
         $data['id'] = $commentId;
         $success = $stmt->execute($data);
 
         if ($success) {
-            $this->redis->del("comments:{$articleId}");
+            $this->redis->del("article:{$data['article_id']}:comments");
         }
 
         return $success;
@@ -66,7 +77,7 @@ class Comment extends Model {
         $success = $stmt->execute(['id' => $commentId]);
         
         if ($success) {
-            $this->redis->del("comments:{$articleId}");
+            $this->redis->del("article:{$articleId}:comments");
         }
         
         return $success;

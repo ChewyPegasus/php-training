@@ -39,6 +39,16 @@ class Article extends Model {
     }
 
     public function find(int $id): ?array {
+        $stmt = $this->db->prepare(
+            "SELECT * FROM articles WHERE id = :id"
+        );
+        $stmt->execute(['id' => $id]);
+        $result = $stmt->fetch();
+
+        return $result ?: null;
+    }
+
+    public function findCached(int $id): ?array {
         $cacheKey = "article:{$id}";
         $cached = $this->redis->get($cacheKey);
 
@@ -46,12 +56,14 @@ class Article extends Model {
             return json_decode($cached, true);
         }
 
-        $stmt = $this->db->prepare("SELECT * FROM articles WHERE id = :id");
+        $stmt = $this->db->prepare(
+            "SELECT * FROM articles WHERE id = :id"
+        );
         $stmt->execute(['id' => $id]);
         $result = $stmt->fetch();
 
         if ($result) {
-            $this->redis->setex($cacheKey, $this->cacheTtl, $result);
+            $this->redis->setex($cacheKey, $this->cacheTtl, json_encode($result));
         }
 
         return $result ?: null;

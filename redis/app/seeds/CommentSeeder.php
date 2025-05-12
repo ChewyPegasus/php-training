@@ -2,14 +2,14 @@
 
 namespace App\Seeds;
 
-use App\Database\Seeder;
+use App\Seeds\Seeder;
 use PDOException;
 
 class CommentSeeder extends Seeder {
 
     protected function generate(int $articleId): array {
         $data = [];
-        $commentsCount = rand(1, 100);
+        $commentsCount = rand(1, 10);
         for ($j = 0; $j < $commentsCount; ++$j) {
             $data[] = [
                 'article_id' => $articleId,
@@ -21,7 +21,7 @@ class CommentSeeder extends Seeder {
     }
 
     public function run(): void {
-        $this->truncate('articles');
+        $this->truncate('comments');
 
         $articles = $this->db->query(
             "SELECT id FROM articles"
@@ -32,18 +32,31 @@ class CommentSeeder extends Seeder {
                 VALUES (:article_id, :content, :author)"
         );
 
-        echo "Starting comment generation";
+        echo "Starting comment generation<br>";
         $startTime = microtime(true);
+
+        $totalComments = 0;
+        $count = 0;
 
         foreach ($articles as $id) {
             try {
                 $this->db->beginTransaction();
                 $comments = $this->generate($id);
-                $stmt->execute($comments);
+                
+                foreach ($comments as $comment) {
+                    $stmt->execute($comment);
+                    $totalComments++;
+                }
+                
                 $this->db->commit();
+                
+                $count++;
+                if ($count % 100 === 0) {
+                    echo "Processed $count articles, $totalComments comments so far<br>";
+                }
             } catch (\PDOException $e) {
                 $this->db->rollBack();
-                echo "Failed: " . $e->getMessage() . "\n";
+                echo "Failed: " . $e->getMessage() . "<br>";
             }
         }
 
