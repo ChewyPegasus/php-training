@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace App\Models;
+
 class Node {
     public function __construct(
         public int $key = 0, 

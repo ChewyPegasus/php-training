@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
+namespace App\Models;
+
 require_once __DIR__ . "/Node.php";
 
-class AVL {
+class AVL implements Tree {
     public function __construct(private ?Node $root = null)
     {
     }

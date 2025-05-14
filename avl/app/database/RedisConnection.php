@@ -1,8 +1,9 @@
 <?php
-// filepath: d:\prog\php\php-training\redis\app\database\RedisConnection.php
 declare(strict_types=1);
 
 namespace App\Database;
+
+require_once __DIR__ . "/Connection.php";
 
 use Redis;
 use Exception;
