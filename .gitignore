@@ -3,3 +3,11 @@
 **/.php-cs-fixer.cache
 **/composer.lock
 .env
+
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
