@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ListController!{% endblock %}
+
+{% block body %}
+<h1> My small library </h1>
+
+<a href="{{ path('book_new') }}">Add new</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+        <tr>
+            <td>
+                <a href="{{ path('book_show', { 'id': book.id }) }}">
+                    {{ book.title }}
+                </a>
+            </td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.description }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+{% endblock %}

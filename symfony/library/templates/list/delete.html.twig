@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1> Delete Book </h1>
+<p>Are you sure you want to delete this book?</p>
+<form method="post">
+    <button type="confirm">Delete</button>
+    <a href="{{ path('book_show', {'id': id}) }}">Cancel</a>
+</form>
+
+{% endblock %}
