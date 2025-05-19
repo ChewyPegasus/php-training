@@ -8,9 +8,11 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\BookRepository;
 use App\Entity\Book;
 use App\Form\BookForm;
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use App\Service\FileUploader;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 final class ListController extends AbstractController
 {
@@ -31,7 +33,11 @@ final class ListController extends AbstractController
     }
 
     #[Route('/new', name: 'book_new')]
-    public function new(Request $request, EntityManagerInterface $manager)
+    public function new(
+        Request $request, 
+        EntityManagerInterface $manager,
+        SluggerInterface $slugger,
+        #[Autowire('%kernel.project_dir%/storage')] string $dir)
     {
         $book = new Book();
 
@@ -40,6 +46,12 @@ final class ListController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get('image')->getData();
+            if ($image) {
+                $uploader = new FileUploader($dir, $slugger);
+                $book->setImageUrl($uploader->upload($image));
+            }
+
             $manager->persist($book);
             $manager->flush();
 

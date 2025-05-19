@@ -27,7 +27,6 @@ class Book
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Url(message: "The url '{{ value }}' is not a valid url")]
     private ?string $imageUrl = null;
 
     public function getId(): ?int

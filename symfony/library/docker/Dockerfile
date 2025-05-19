@@ -9,7 +9,8 @@ RUN docker-php-ext-install \
     pdo \
     pdo_pgsql \
     zip \
-    intl
+    intl \
+    fileinfo
 
 RUN addgroup -g 1000 appgroup && \
     adduser -u 1000 -G appgroup -h /home/appuser -D appuser

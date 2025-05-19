@@ -123,7 +123,7 @@ class __TwigTemplate_48fbd740d4f6912dd63210f3fa10b63b extends Template
 
 <h1> New book </h1>
 
-{{ form(form)}}
+{{ form(form) }}
 
 {% endblock %}
 ", "list/new.html.twig", "D:\\prog\\php\\php-training\\symfony\\library\\templates\\list\\new.html.twig");

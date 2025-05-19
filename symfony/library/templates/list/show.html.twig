@@ -15,7 +15,7 @@
             <td>{{ book.title }}</td>
         </tr>
         <tr>
-            <th>Author</th>
+            <th>Author</th>docker
             <td>{{ book.author }}</td>
         </tr>
         <tr>
@@ -23,8 +23,14 @@
             <td>{{ book.description }}</td>
         </tr>
         <tr>
-            <th>Url</th>
-            <td>{{ book.imageUrl }}</td>
+            <th>Image</th>
+            <td>
+                {% if book.imageUrl %}
+                    <img src="/storage/{{ book.imageUrl }}">
+                {% else %}
+                    No image
+                {% endif %}
+            </td>
         </tr>
     </tbody>
 </table>
