@@ -93,7 +93,7 @@ class __TwigTemplate_8082536aadac7ec04456040d442594d5 extends Template
         yield "</td>
         </tr>
         <tr>
-            <th>Author</th>docker
+            <th>Author</th>
             <td>";
         // line 19
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 19, $this->source); })()), "author", [], "any", false, false, false, 19), "html", null, true);
@@ -113,7 +113,7 @@ class __TwigTemplate_8082536aadac7ec04456040d442594d5 extends Template
         // line 28
         if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 28, $this->source); })()), "imageUrl", [], "any", false, false, false, 28)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
             // line 29
-            yield "                    <img src=\"/storage/";
+            yield "                    <img src=\"http://localhost/storage/";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["book"]) || array_key_exists("book", $context) ? $context["book"] : (function () { throw new RuntimeError('Variable "book" does not exist.', 29, $this->source); })()), "imageUrl", [], "any", false, false, false, 29), "html", null, true);
             yield "\">
                 ";
@@ -192,7 +192,7 @@ class __TwigTemplate_8082536aadac7ec04456040d442594d5 extends Template
             <td>{{ book.title }}</td>
         </tr>
         <tr>
-            <th>Author</th>docker
+            <th>Author</th>
             <td>{{ book.author }}</td>
         </tr>
         <tr>
@@ -203,7 +203,7 @@ class __TwigTemplate_8082536aadac7ec04456040d442594d5 extends Template
             <th>Image</th>
             <td>
                 {% if book.imageUrl %}
-                    <img src=\"/storage/{{ book.imageUrl }}\">
+                    <img src=\"http://localhost/storage/{{ book.imageUrl }}\">
                 {% else %}
                     No image
                 {% endif %}

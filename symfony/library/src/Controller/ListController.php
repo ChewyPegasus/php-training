@@ -71,12 +71,33 @@ final class ListController extends AbstractController
     }
 
     #[Route('/edit/{id<\d+>}', name: 'book_edit')]
-    public function edit(Book $book, Request $request, EntityManagerInterface $manager): Response {
+    public function edit(
+        Book $book, 
+        Request $request, 
+        EntityManagerInterface $manager,
+        SluggerInterface $slugger,
+        #[Autowire('%kernel.project_dir%/storage')] string $dir): Response
+    {
         $form = $this->createForm(BookForm::class, $book);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get('image')->getData();
+            if ($image) {
+                $oldImageUrl = $book->getImageUrl();
+
+                $uploader = new FileUploader($dir, $slugger);
+                $book->setImageUrl($uploader->upload($image));
+
+                if ($oldImageUrl) {
+                $oldImagePath = $dir . '/' . $oldImageUrl;
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+            }
+
             $manager->flush();
 
             $this->addFlash(
@@ -89,8 +110,9 @@ final class ListController extends AbstractController
             ]);
         }
 
-        return $this->render('list/edit.html.twig',[
+        return $this->render('list/edit.html.twig', [
             'form' => $form,
+            'book' => $book,
         ]);
     }
 

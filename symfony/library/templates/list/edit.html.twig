@@ -4,6 +4,26 @@
 
 <h1> Edit book </h1>
 
-{{ form(form) }}
+<div class="row">
+    {% if book.imageUrl %}
+    <div class="col-md-4">
+        <img src="/storage/{{ book.imageUrl }}" alt="{{ book.title }}" class="img-fluid mb-3">
+        <p><em>Current image</em></p>
+    </div>
+    {% endif %}
+    
+    <div class="col-md-8">
+        {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+            {{ form_row(form.title) }}
+            {{ form_row(form.author) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.image, {'label': 'Upload new image (optional)'}) }}
+            
+            <div class="mt-3">
+                <a href="{{ path('book_list') }}" class="btn btn-secondary">Back to list</a>
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>
 
 {% endblock %}

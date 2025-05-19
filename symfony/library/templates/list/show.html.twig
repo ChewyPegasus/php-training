@@ -15,7 +15,7 @@
             <td>{{ book.title }}</td>
         </tr>
         <tr>
-            <th>Author</th>docker
+            <th>Author</th>
             <td>{{ book.author }}</td>
         </tr>
         <tr>
@@ -26,7 +26,7 @@
             <th>Image</th>
             <td>
                 {% if book.imageUrl %}
-                    <img src="/storage/{{ book.imageUrl }}">
+                    <img src="http://localhost/storage/{{ book.imageUrl }}">
                 {% else %}
                     No image
                 {% endif %}

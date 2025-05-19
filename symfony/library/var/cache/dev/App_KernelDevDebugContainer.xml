@@ -302,7 +302,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.TcVT84u"/>
+      <argument type="service" id=".service_locator.vSCkMGd"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -1558,7 +1558,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.TcVT84u"/>
+      <argument type="service" id=".service_locator.vSCkMGd"/>
     </service>
     <service id="routing.resolver" class="Symfony\Component\Config\Loader\LoaderResolver">
       <call method="addLoader">
@@ -4234,6 +4234,21 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.iPQuQfd" method="withContext"/>
     </service>
+    <service id=".service_locator.jDCAKJb" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="book" type="service_closure" id=".errored..service_locator.jDCAKJb.App\Entity\Book"/>
+        <argument key="manager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="slugger" type="service_closure" id="slugger"/>
+        <argument key="dir" type="service_closure" id=".value.CLnUN3U"/>
+      </argument>
+    </service>
+    <service id=".service_locator.jDCAKJb.App\Controller\ListController::edit()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\ListController::edit()"/>
+      <argument>App\Controller\ListController::edit()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.jDCAKJb" method="withContext"/>
+    </service>
     <service id=".service_locator.b5CEtmN" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -4241,19 +4256,13 @@
         <argument key="manager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
-    <service id=".service_locator.b5CEtmN.App\Controller\ListController::edit()" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\ListController::edit()"/>
-      <argument>App\Controller\ListController::edit()</argument>
-      <argument type="service" id="service_container"/>
-      <factory service=".service_locator.b5CEtmN" method="withContext"/>
-    </service>
     <service id=".service_locator.b5CEtmN.App\Controller\ListController::delete()" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\ListController::delete()"/>
       <argument>App\Controller\ListController::delete()</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.b5CEtmN" method="withContext"/>
     </service>
-    <service id=".service_locator.TcVT84u" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.vSCkMGd" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
@@ -4263,14 +4272,14 @@
         <argument key="App\Controller\ListController::index" type="service_closure" id=".service_locator.F4lmtQl.App\Controller\ListController::index()"/>
         <argument key="App\Controller\ListController::show" type="service_closure" id=".service_locator.b3R8WOF.App\Controller\ListController::show()"/>
         <argument key="App\Controller\ListController::new" type="service_closure" id=".service_locator.iPQuQfd.App\Controller\ListController::new()"/>
-        <argument key="App\Controller\ListController::edit" type="service_closure" id=".service_locator.b5CEtmN.App\Controller\ListController::edit()"/>
+        <argument key="App\Controller\ListController::edit" type="service_closure" id=".service_locator.jDCAKJb.App\Controller\ListController::edit()"/>
         <argument key="App\Controller\ListController::delete" type="service_closure" id=".service_locator.b5CEtmN.App\Controller\ListController::delete()"/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
         <argument key="App\Controller\ListController:index" type="service_closure" id=".service_locator.F4lmtQl.App\Controller\ListController::index()"/>
         <argument key="App\Controller\ListController:show" type="service_closure" id=".service_locator.b3R8WOF.App\Controller\ListController::show()"/>
         <argument key="App\Controller\ListController:new" type="service_closure" id=".service_locator.iPQuQfd.App\Controller\ListController::new()"/>
-        <argument key="App\Controller\ListController:edit" type="service_closure" id=".service_locator.b5CEtmN.App\Controller\ListController::edit()"/>
+        <argument key="App\Controller\ListController:edit" type="service_closure" id=".service_locator.jDCAKJb.App\Controller\ListController::edit()"/>
         <argument key="App\Controller\ListController:delete" type="service_closure" id=".service_locator.b5CEtmN.App\Controller\ListController::delete()"/>
       </argument>
     </service>
@@ -4572,6 +4581,9 @@
     </service>
     <service id=".errored..service_locator.b3R8WOF.App\Entity\Book" class="App\Entity\Book">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.b3R8WOF&quot;: it needs an instance of &quot;App\Entity\Book&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.jDCAKJb.App\Entity\Book" class="App\Entity\Book">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.jDCAKJb&quot;: it needs an instance of &quot;App\Entity\Book&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
     </service>
     <service id=".errored..service_locator.b5CEtmN.App\Entity\Book" class="App\Entity\Book">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.b5CEtmN&quot;: it needs an instance of &quot;App\Entity\Book&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
@@ -5393,7 +5405,7 @@
     <service id="doctrine.migrations.metadata_storage" alias="doctrine.migrations.storage.table_storage"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.TcVT84u"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.vSCkMGd"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.BxSdgVt"/>
     <service id="Psr\Log\LoggerInterface" alias="logger"/>
@@ -5408,6 +5420,7 @@
     <service id=".service_locator.ZTbAIq6" alias=".service_locator.F4lmtQl"/>
     <service id=".service_locator.zHSsHjv" alias=".service_locator.b3R8WOF"/>
     <service id=".service_locator.5YYgFFR" alias=".service_locator.iPQuQfd"/>
+    <service id=".service_locator.mifv3.Z" alias=".service_locator.jDCAKJb"/>
     <service id=".service_locator.tj97cXT" alias=".service_locator.b5CEtmN"/>
     <service id=".service_locator.Yg4vxzj" alias=".service_locator.ZyP9f7K"/>
   </services>

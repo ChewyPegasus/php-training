@@ -23,6 +23,7 @@ services:
     volumes:
       - .:/srv/app:rw
       - symfony_cache:/srv/app/var/cache:rw
+      - ./storage:/srv/app/storage:rw
     environment:
       APP_ENV: ${APP_ENV:-dev}
       APP_SECRET: ${APP_SECRET}
@@ -42,6 +43,7 @@ services:
     volumes:
       - .:/srv/app:rw
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./storage:/srv/app/storage:rw
     ports:
       - "80:80"
     depends_on:

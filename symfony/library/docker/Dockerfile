@@ -15,8 +15,9 @@ RUN docker-php-ext-install \
 RUN addgroup -g 1000 appgroup && \
     adduser -u 1000 -G appgroup -h /home/appuser -D appuser
 
-RUN mkdir -p /srv/app/var/cache /srv/app/var/log \
-    && chown -R www-data:www-data /srv/app/var
+RUN mkdir -p /srv/app/var/cache /srv/app/var/log /srv/app/storage /srv/app/public/storage && \
+    chown -R www-data:www-data /srv/app/var && \
+    ln -sf /srv/app/storage /srv/app/public/storage
 
 USER www-data
 
