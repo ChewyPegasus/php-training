@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-interface Tree {
+interface Tree
+{
     public function find(int $x): bool;
 
     public function postOrder(): array;

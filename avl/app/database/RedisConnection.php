@@ -3,12 +3,13 @@ declare(strict_types=1);
 
 namespace App\Database;
 
-require_once __DIR__ . "/Connection.php";
+require_once __DIR__ . '/Connection.php';
 
 use Redis;
 use Exception;
 
-class RedisConnection extends Connection {
+class RedisConnection extends Connection
+{
     protected static ?Redis $instance = null;
 
     public static function getInstance(): Redis
@@ -20,13 +21,13 @@ class RedisConnection extends Connection {
             try {
                 $redis = new Redis();
                 if (!$redis->connect($host, (int)$port)) {
-                    throw new Exception("Could not connect to Redis server");
+                    throw new Exception('Could not connect to Redis server');
                 }
                 
                 $redis->ping();
                 self::$instance = $redis;
             } catch (Exception $e) {
-                die("Redis connection failed: " . $e->getMessage());
+                die('Redis connection failed: ' . $e->getMessage());
             }
         }
         

@@ -3,8 +3,6 @@
 declare(strict_types=1);
 
 require_once __DIR__ . "/vendor/autoload.php";
-require_once __DIR__ . "/app/database/Connection.php";
-require_once __DIR__ . "/app/database/RedisConnection.php";
 
 $envFile = __DIR__ . "/docker/.env";
 if (file_exists($envFile)) {

@@ -11,7 +11,8 @@ class AVL implements Tree {
     {
     }
 
-    private function rightRotate(Node $y): Node {
+    private function rightRotate(Node $y): Node
+    {
         $x = $y->left;
         $T2 = $x->right;
 
@@ -24,7 +25,8 @@ class AVL implements Tree {
         return $x;
     }
 
-    private function leftRotate(Node $x): Node {
+    private function leftRotate(Node $x): Node
+    {
         $y = $x->right;
         $T2 = $y->left;
 
@@ -87,7 +89,8 @@ class AVL implements Tree {
         return $node;
     }
 
-    public function find(int $x): bool {
+    public function find(int $x): bool
+    {
         $current = $this->root;
         
         while ($current !== null) {
@@ -153,7 +156,8 @@ class AVL implements Tree {
         }
     }
 
-    public function delete(int $x): bool {
+    public function delete(int $x): bool
+    {
         if (!$this->find($x)) {
             return false;
         }
@@ -162,7 +166,8 @@ class AVL implements Tree {
         return true;
     }
 
-    private function deleteNode(?Node $node, int $x): ?Node {
+    private function deleteNode(?Node $node, int $x): ?Node
+    {
         if ($node === null) {
             return null;
         }
@@ -218,7 +223,8 @@ class AVL implements Tree {
         return $node;
     }
 
-    private function findMinValueNode(Node $node): Node {
+    private function findMinValueNode(Node $node): Node
+    {
         $current = $node;
 
         while ($current->left !== null) {

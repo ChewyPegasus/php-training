@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-class Node {
+class Node
+{
     public function __construct(
         public int $key = 0, 
         public ?Node $left = null,
@@ -13,14 +14,16 @@ class Node {
     {
     }
 
-    public static function getHeight(?Node $node): int {
+    public static function getHeight(?Node $node): int
+    {
         if ($node === null) {
             return 0;
         }
         return $node->height;
     }
 
-    public static function getBalanceFactor(?Node $node): int {
+    public static function getBalanceFactor(?Node $node): int
+    {
         if ($node === null) {
             return 0;
         }
