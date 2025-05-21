@@ -1,17 +1,18 @@
 <?php
-// filepath: d:\prog\php\php-training\redis\app\models\Article.php
 namespace App\Models;
 
 use App\Database\PostgresConnection;
 use PDO;
 use Redis;
 
-class Article extends Model {
+class Article extends Model
+{
     protected int $cacheTtl = 3600;
 
-    public function create(array $data): int {
-        $query = "INSERT INTO articles (title, content)
-                    VALUES (:title, :content) RETURNING id";
+    public function create(array $data): int
+    {
+        $query = 'INSERT INTO articles (title, content)
+                    VALUES (:title, :content) RETURNING id';
         $stmt = $this->db->prepare($query);
 
         $stmt->execute($data);
@@ -23,14 +24,15 @@ class Article extends Model {
         return $id;
     }
 
-    public function all(): array {
+    public function all(): array
+    {
         $cached = $this->redis->get('articles:all');
 
         if ($cached) {
             return json_decode($cached, true);
         }
 
-        $stmt = $this->db->query("SELECT * FROM articles ORDER BY created_at DESC");
+        $stmt = $this->db->query('SELECT * FROM articles ORDER BY created_at DESC');
         $articles = $stmt->fetchAll();
 
         $this->redis->setex('articles:all', $this->cacheTtl, json_encode($articles));
@@ -38,9 +40,10 @@ class Article extends Model {
         return $articles;
     }
 
-    public function find(int $id): ?array {
+    public function find(int $id): ?array
+    {
         $stmt = $this->db->prepare(
-            "SELECT * FROM articles WHERE id = :id"
+            'SELECT * FROM articles WHERE id = :id'
         );
         $stmt->execute(['id' => $id]);
         $result = $stmt->fetch();
@@ -48,8 +51,9 @@ class Article extends Model {
         return $result ?: null;
     }
 
-    public function findCached(int $id): ?array {
-        $cacheKey = "article:{$id}";
+    public function findCached(int $id): ?array
+    {
+        $cacheKey = 'article:' . $id;
         $cached = $this->redis->get($cacheKey);
 
         if ($cached) {
@@ -57,7 +61,7 @@ class Article extends Model {
         }
 
         $stmt = $this->db->prepare(
-            "SELECT * FROM articles WHERE id = :id"
+            'SELECT * FROM articles WHERE id = :id'
         );
         $stmt->execute(['id' => $id]);
         $result = $stmt->fetch();
@@ -69,30 +73,34 @@ class Article extends Model {
         return $result ?: null;
     }
 
-    public function update(int $id, array $data): bool {
-        $query = "UPDATE articles SET 
+    public function update(int $id, array $data): bool
+    {
+        $query = 'UPDATE articles SET 
                     title = :title, 
                     content = :content
-                  WHERE id = :id";
+                  WHERE id = :id';
         $stmt = $this->db->prepare($query);
         $data['id'] = $id;
         $success = $stmt->execute($data);
         
         if ($success) {
-            $this->redis->del("article:{$id}");
-            $this->redis->del("articles:all");
+            $this->redis->del('article:' . $id);
+            $this->redis->del('articles:all');
         }
         
         return $success;
     }
 
-    public function delete(int $id): bool {
-        $stmt = $this->db->prepare("DELETE FROM articles WHERE id = :id");
-        $success = $stmt->execute(['id' => $id]);
+    public function delete(int $id): bool
+    {
+        $stmt = $this->db->prepare('DELETE FROM articles WHERE id = :id');
+        $success = $stmt->execute([
+            'id' => $id,
+        ]);
         
         if ($success) {
-            $this->redis->del("article:{$id}");
-            $this->redis->del("articles:all");
+            $this->redis->del('article:' . $id);
+            $this->redis->del('articles:all');
         }
         
         return $success;

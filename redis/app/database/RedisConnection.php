@@ -1,5 +1,4 @@
 <?php
-// filepath: d:\prog\php\php-training\redis\app\database\RedisConnection.php
 declare(strict_types=1);
 
 namespace App\Database;
@@ -7,7 +6,8 @@ namespace App\Database;
 use Redis;
 use Exception;
 
-class RedisConnection extends Connection {
+class RedisConnection extends Connection
+{
     protected static ?Redis $instance = null;
 
     public static function getInstance(): Redis

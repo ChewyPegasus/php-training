@@ -5,8 +5,8 @@ namespace App\Models;
 
 class Comment extends Model {
     public function create(array $data): int {
-        $query = "INSERT INTO comments (article_id, content, author)
-                    VALUES (:article_id, :content, :author) RETURNING id";
+        $query = 'INSERT INTO comments (article_id, content, author)
+                    VALUES (:article_id, :content, :author) RETURNING id';
         $stmt = $this->db->prepare($query);
 
         $stmt->execute($data);
@@ -18,12 +18,15 @@ class Comment extends Model {
         return $id;
     }
 
-    public function find(int $articleId): ?array {
+    public function find(int $articleId): ?array
+    {
         $stmt = $this->db->prepare(
             "SELECT * FROM comments WHERE article_id = :article_id ORDER BY created_at DESC"
         );
 
-        $stmt->execute(['article_id' => $articleId]);
+        $stmt->execute([
+            'article_id' => $articleId,
+        ]);
 
         $result = $stmt->fetchAll();
 

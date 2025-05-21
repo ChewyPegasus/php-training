@@ -9,7 +9,8 @@ use Faker\Generator;
 use Faker\Factory;
 use App\Database\PostgresConnection;
 
-abstract class Seeder {
+abstract class Seeder 
+{
     protected PDO $db;
     protected Generator $faker;
 
@@ -23,7 +24,8 @@ abstract class Seeder {
 
     abstract protected function generate(int $x): array;
 
-    public function truncate(string $table): void {
+    public function truncate(string $table): void 
+    {
         $this->db->exec("TRUNCATE TABLE $table CASCADE");
     }
 }

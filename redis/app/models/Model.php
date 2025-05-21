@@ -9,7 +9,8 @@ use App\Database\RedisConnection;
 use PDO;
 use Redis;
 
-abstract class Model {
+abstract class Model
+{
     protected PDO $db;
     protected Redis $redis;
     protected int $cacheTtl = 60;

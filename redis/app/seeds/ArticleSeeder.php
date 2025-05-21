@@ -4,9 +4,10 @@ namespace App\Seeds;
 
 use App\Seeds\Seeder;
 
-class ArticleSeeder extends Seeder {
-
-    protected function generate(int $batch): array {
+class ArticleSeeder extends Seeder 
+{
+    protected function generate(int $batch): array 
+    {
         $data = [];
         for ($j = 0; $j < $batch; ++$j) {
             $data[] = [
@@ -17,19 +18,20 @@ class ArticleSeeder extends Seeder {
         return $data;
     }
 
-    public function run(): void {
+    public function run(): void 
+    {
         $this->truncate('articles');
 
         $batch = 100;
         $total = 1000;
         $batches = ceil($total / $batch);
 
-        echo "Starting article generation: $total records in batches of $batch<br>";
+        echo sprintf('Starting article generation: %d records in batches of %d<br>', $total, $batch);
 
-        $query = "
+        $query = '
             INSERT INTO articles (title, content)
             VALUES (:title, :content)
-        ";
+        ';
 
         $stmt = $this->db->prepare($query);
 
@@ -53,13 +55,13 @@ class ArticleSeeder extends Seeder {
                 $this->db->commit();
 
                 $recordsInserted += $batch;
-                echo "Inserted $recordsInserted records<br>";
+                echo sprintf('Inserted %d records<br>', $recordsInserted);
             }
             $time = microtime(true) - $startTime;
-            echo "Data generation completed in " . round($time, 2) . " seconds<br>";
+            echo 'Data generation completed in ' . round($time, 2) . ' seconds<br>';
         } catch (\Exception $e) {
             $this->db->rollBack();
-            echo "Failed: " . $e->getMessage() . "<br>";
+            echo 'Failed: ' . $e->getMessage() . '<br>';
         }
     }
 }

@@ -7,10 +7,12 @@ namespace App\Database;
 use PDO;
 use PDOException;
 
-class PostgresConnection extends Connection {
+class PostgresConnection extends Connection
+{
     protected static ?PDO $instance = null;
     
-    public static function getInstance(): PDO {
+    public static function getInstance(): PDO
+    {
         if (self::$instance === null) {
             try {
                 $host = getenv('POSTGRES_HOST');
@@ -19,7 +21,7 @@ class PostgresConnection extends Connection {
                 $password = getenv('POSTGRES_PASSWORD');
 
                 self::$instance = new PDO(
-                    "pgsql:host=$host;dbname=$db",
+                    sprintf('pgsql:host=%s;dbname=%s', $host, $db),
                     $user,
                     $password,
                     [
@@ -28,7 +30,7 @@ class PostgresConnection extends Connection {
                     ]
                 );
             } catch (PDOException $e) {
-                die("Database connection failed" . $e->getMessage());
+                die('Database connection failed' . $e->getMessage());
             }
         }
         return self::$instance;
