@@ -11,22 +11,32 @@ class FileUploader
     public function __construct(
         private string $targetDirectory,
         private SluggerInterface $slugger,
-    ) {
+    )
+    {
     }
 
     public function upload(UploadedFile $file): string
     {
         if (!is_dir($this->targetDirectory) && !mkdir($this->targetDirectory, 0755, true)) {
-            throw new FileException("Upload directory doesn't exist and couldn't be created");
+            throw new FileException('Upload directory doesn\'t exist and couldn\'t be created');
         }   
-        $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $originalFilename = pathinfo(
+            $file->getClientOriginalName(), 
+            PATHINFO_FILENAME,
+        );
         $safeFilename = $this->slugger->slug($originalFilename);
-        $fileName = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+        $fileName = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
 
         try {
-            $file->move($this->getTargetDirectory(), $fileName);
+            $file->move(
+                $this->getTargetDirectory(), 
+                $fileName,
+            );
         } catch (FileException $e) {
-            throw new FileException("Failed to upload file: " . $e->getMessage(), $e->getCode(), $e);
+            throw new FileException(
+                'Failed to upload file: ' . $e->getMessage(), 
+                $e->getCode(), 
+                $e);
         }
 
         return $fileName;
